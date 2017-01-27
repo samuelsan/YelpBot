@@ -1,6 +1,3 @@
-
-// token=xoxb-133553196565-VtLT0uKiS3qBjWgPxcwwOix4 node yelp_bot.js
-
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
 
