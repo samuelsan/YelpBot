@@ -1,20 +1,21 @@
-
-// token=xoxb-133553196565-VtLT0uKiS3qBjWgPxcwwOix4 node yelp_bot.js
+require('dotenv').load();
 
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
 
 var Yelp = require('yelp');
+console.log("ICI");
+  console.log(process.env.YELP_CONSUMER_KEY);
 
 var yelp = new Yelp({
-  consumer_key: 'wUTOZlkQEAao78D1YjFfNg',
-  consumer_secret: 'nT4spmkqwqoW1oXsumSKIfCW1-w',
-  token: 'CJrU80xL8itZQDieyVp_AfgwzkQ08SBp',
-  token_secret: 'r6Y2zrlyZhmmxOEjLOKYbXPrK3Q',
+  consumer_key: process.env.YELP_CONSUMER_KEY,
+  consumer_secret: process.env.YELP_CONSUMER_SECRET,
+  token: process.env.YELP_TOKEN,
+  token_secret: process.env.YELP_TOKEN_SECRET
 });
 
 var controller = Botkit.slackbot({
-    debug: true,
+    debug: false,
 });
 
 var bot = controller.spawn({
