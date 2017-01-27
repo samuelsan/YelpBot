@@ -19,16 +19,15 @@ var controller = Botkit.slackbot({
 });
 
 var bot = controller.spawn({
-    token: process.env.token
+    token: process.env.SLACK_TOKEN
 }).startRTM();
-
 
 function get_yelp_rating(item, convo){
     convo.ask("Which place do you want a rating for?", function(response, convo) {
       convo.say("Stay tuned!")
       yelp.search({term: response.text, location: 'Toronto Eglinton', limit: 1})
-        .then(function (data) { //The API call was returned successfully
-          convo.say("The rating for " + response.text + " is " + data.businesses[0].rating.toString() + " stars"); //Log the API call response to the console
+        .then(function (data) { 
+          convo.say("The rating for " + response.text + " is " + data.businesses[0].rating.toString() + " stars");
           convo.say("Bon Appetit!");
           convo.next();
         }).catch(function (err) { 
@@ -42,9 +41,8 @@ function get_yelp_food(item, convo){
     convo.ask("What kind of food do you want?", function(response, convo) {
         convo.say("Coming right up!");
       yelp.search({term: response.text, location: 'Toronto Eglinton', limit: 3})
-        .then(function (data) { //The API call was returned successfully
-          convo.say("The following places have " + response.text + " food"); //Log the API call response to the console
-
+        .then(function (data) { 
+          convo.say("The following places have " + response.text + " food"); 
           var counter = 1;
           while(data.businesses[counter-1]){
             convo.say(counter.toString() + '. ' + data.businesses[counter-1].name);
@@ -77,7 +75,6 @@ function get_yelp_review(item, convo){
          });
     });
 };    
-
 
 controller.hears(['Yelp Rating'],['direct_message'],function(bot,message) {
     bot.startConversation(message, get_yelp_rating);
